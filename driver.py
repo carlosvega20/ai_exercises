@@ -3,6 +3,7 @@
 import sys
 import math
 import time
+import resource
 
 class Queue(object):
   def __init__(self, value=None):
@@ -146,7 +147,7 @@ def create_write_file(node, explored, expanded, lifetimeSize, max_search_depth, 
   print 'search_depth: ', node.depth
   print 'max_search_depth: ', max_search_depth
   print 'running_time: ', format(float(time), '.8f')
-  print 'max_ram_usage: the maximum RAM usage in the lifetime of the process as measured by the ru_maxrss attribute in the resource module, reported in megabytes'
+  print 'max_ram_usage: ', format(float(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)/10000, '.8f')
   # f = open('output.txt','w')
   # f.write(str(node))
   # f.close()
