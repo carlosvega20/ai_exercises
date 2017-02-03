@@ -139,18 +139,33 @@ def create_write_file(node, explored, expanded, lifetimeSize, max_search_depth, 
   while x.parent:
     result.append(x.move)
     x = x.parent
-  print 'path_to_goal: ', result[::-1]
-  print 'cost_of_path: ', len(result)
-  print 'nodes_expanded:', expanded
-  print 'fringe_size:', len(explored)
-  print 'max_fringe_size: ', lifetimeSize
-  print 'search_depth: ', node.depth
-  print 'max_search_depth: ', max_search_depth
-  print 'running_time: ', format(float(time), '.8f')
-  print 'max_ram_usage: ', format(float(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)/10000, '.8f')
-  # f = open('output.txt','w')
-  # f.write(str(node))
-  # f.close()
+
+  path_to_goal = result[::-1]
+  cost_of_path = len(result)
+  nodes_expanded = expanded
+  fringe_size = len(explored)
+  max_fringe_size = lifetimeSize
+  search_depth = node.depth
+  max_search_depth = max_search_depth
+  running_time = format(float(time), '.8f')
+  max_ram_usage = format(float(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)/10000, '.8f')
+  
+  f = open('output.txt','w')
+  f.write('path_to_goal: {} \ncost_of_path:'\
+  '{}\nnodes_expanded: {}\nringe_size: {}\n'\
+  'max_fringe_size: {}\nsearch_depth: {}\n'\
+  'max_search_depth: {}\nrunning_time: {}\n'\
+  'max_ram_usage: {}\n'.format(
+    path_to_goal,
+    cost_of_path,
+    nodes_expanded,
+    fringe_size,
+    max_fringe_size,
+    search_depth,
+    max_search_depth,
+    running_time,
+    max_ram_usage))
+  f.close()
 
 def bind(func, *args, **kwargs):
     return lambda: func(*args, **kwargs)
