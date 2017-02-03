@@ -128,10 +128,10 @@ def graph_search(initialState, fringe, order=1):
   print 'failure'
 
 def search_ast(initialState):
-  print 'search ast not implemented yet'
+  print 'Search ast not implemented yet'
 
 def search_ida(initialState):
-  print 'search ida not implemented yet'
+  print 'Search ida not implemented yet'
 
 def create_write_file(node, explored, expanded, lifetimeSize, max_search_depth, time):
   x, result = node, []
