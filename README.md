@@ -1,7 +1,8 @@
 # ai_exercises
 
-Based on Artificial Intelligence (AI) Master’s/graduate level course at Columbia University.
-by Carlos Andres Vega
+Artificial Intelligence (AI) Master’s/graduate level course at Columbia University.
+
+by Carlos **Andres Vega
 
 Artificial Intelligence program to resolve n^2-puzzle game based on:
 bfs (Breadth-First Search)(DONE)
