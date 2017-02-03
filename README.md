@@ -1,14 +1,14 @@
 # ai_exercises
 
-Artificial Intelligence (AI) Master’s/graduate level course at Columbia University.
+**Artificial Intelligence (AI) Master’s/graduate level course at Columbia University.**
 
-by Carlos **Andres Vega
+by **Carlos Andres Vega**
 
-Artificial Intelligence program to resolve n^2-puzzle game based on:
-bfs (Breadth-First Search)(DONE)
-dfs (Depth-First Search)(DONE)
-ast (A-Star Search) (IN PROGRESS)
-ida (IDA-Star Search) (IN PROGRESS)
+Artificial Intelligence program to resolve **n^2-puzzle game** based on:
+- bfs (Breadth-First Search)(DONE)
+- dfs (Depth-First Search)(DONE)
+- ast (A-Star Search) (IN PROGRESS)
+- ida (IDA-Star Search) (IN PROGRESS)
 
 requirments:
 - Python Python 2.7.10
