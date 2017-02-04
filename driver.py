@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 import sys
 import math
 import time
@@ -7,28 +5,28 @@ import resource
 
 class Queue(object):
   def __init__(self, value=None):
-    self.lifetimeSize = 0
     if value is None:
         self.value = []
     else:
         self.value = list(value)
+  def __len__(self):
+    return len(self.value)
   def remove(self):
     return self.value.pop(0)
   def add(self, element):
-    self.lifetimeSize+=1
     self.value.append(element)
 
 class Stack(object):
   def __init__(self, value=None):
-    self.lifetimeSize = 0
     if value is None:
         self.value = []
     else:
         self.value = list(value)
+  def __len__(self):
+    return len(self.value)
   def remove(self):
     return self.value.pop()
   def add(self, element):
-    self.lifetimeSize+=1
     self.value.append(element)
 
 #move elements
@@ -109,6 +107,7 @@ def graph_search(initialState, fringe, order=1):
   expanded = 0
   max_search_depth = 0
   startTime = time.time()
+  max_fringe_size = 0
 
   while not frontier.value == []:
     node = frontier.remove()
@@ -116,7 +115,7 @@ def graph_search(initialState, fringe, order=1):
     
     if goalTest(node.state):
       create_write_file(
-        node, explored, expanded, frontier.lifetimeSize, max_search_depth, "%s" % (time.time() - startTime))
+        node, explored, expanded, frontier, max_fringe_size, max_search_depth, "%s" % (time.time() - startTime))
       return 'success'
 
     game = Game(node.state)
@@ -126,6 +125,7 @@ def graph_search(initialState, fringe, order=1):
         children = node.expand(neighbor._state, neighbor._action)
         max_search_depth = children.depth if children.depth>=max_search_depth else max_search_depth
         frontier.add(children)
+        max_fringe_size = len(frontier) if len(frontier)>=max_fringe_size else max_fringe_size
   print 'failure'
 
 def search_ast(initialState):
@@ -134,7 +134,7 @@ def search_ast(initialState):
 def search_ida(initialState):
   print 'Search ida not implemented yet'
 
-def create_write_file(node, explored, expanded, lifetimeSize, max_search_depth, time):
+def create_write_file(node, explored, expanded, frontier, max_fringe_size, max_search_depth, time):
   x, result = node, []
   while x.parent:
     result.append(x.move)
@@ -143,16 +143,14 @@ def create_write_file(node, explored, expanded, lifetimeSize, max_search_depth, 
   path_to_goal = result[::-1]
   cost_of_path = len(result)
   nodes_expanded = expanded
-  fringe_size = len(explored)
-  max_fringe_size = lifetimeSize
+  fringe_size = len(frontier)
   search_depth = node.depth
-  max_search_depth = max_search_depth
   running_time = format(float(time), '.8f')
   max_ram_usage = format(float(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)/10000, '.8f')
   
   f = open('output.txt','w')
-  f.write('path_to_goal: {} \ncost_of_path:'\
-  '{}\nnodes_expanded: {}\nringe_size: {}\n'\
+  f.write('path_to_goal: {} \ncost_of_path: {}\n'\
+  'nodes_expanded: {}\nfringe_size: {}\n'\
   'max_fringe_size: {}\nsearch_depth: {}\n'\
   'max_search_depth: {}\nrunning_time: {}\n'\
   'max_ram_usage: {}\n'.format(
